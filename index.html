@@ -100,9 +100,12 @@
 			transition: .2s;
 		}
 		
+		input[type=range]::-moz-focus-outer { 
+			border: 0;
+		}
+		
 		input[type=range]::-moz-range-track {
 			opacity: 0;
-			outline: none;
 		}
 		
 		input[type=range]::-moz-range-thumb {
@@ -277,7 +280,6 @@
 			event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
 			a.dispatchEvent(event);
 		}
-
 	</script>
 </body>
 
