@@ -42,21 +42,25 @@
 		#references {
 			margin: 1em auto;
 		}
+		
+		.sub input {
+			margin-top: 0;
+		}
 	</style>
 </head>
 
 <body>
 	<h1>こりんちゃんジェネレーター</h1>
-	<p>
-		1行目<input type="text" class="text" value="内燃機関は" placeholder="内燃機関は">
+	<div>1行目<input type="text" class="text" value="内燃機関は" placeholder="内燃機関は"></div>
+	<div class="sub">
 		サイズ<input type="text" class="size" value="50" placeholder="50">
 		高さ<input type="text" class="yPos" value="130" placeholder="130">
-	</p>
-	<p>
-		2行目<input type="text" class="text" value="もうないねん" placeholder="もうないねん">
+	</div>
+	<div> 2行目<input type="text" class="text" value="もうないねん" placeholder="もうないねん"></div>
+	<div class="sub">
 		サイズ<input type="text" class="size" value="50" placeholder="50">
 		高さ<input type="text" class="yPos" value="230" placeholder="230">
-	</p>
+	</div>
 
 	<a onclick="saveCanvas();"><canvas id="result" width="882" height="889"></canvas></a>
 
