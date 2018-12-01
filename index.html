@@ -83,24 +83,25 @@
 			box.addEventListener("input", genImage);
 		}
 
+		// へんすーをキャッシュ
+		let xPos = [280, 130];
+		let yPos = document.getElementsByClassName('yPos')
+		let sizes = document.getElementsByClassName('size');
+
 		// 画像をジェネレート
 		function genImage() {
-			var img = new createjs.Bitmap(baseImg);
+			let img = new createjs.Bitmap(baseImg);
 
 			stage.addChild(img);
-
-			let xPos = [280, 130];
-			let yPos = document.getElementsByClassName('yPos')
-			let sizes = document.getElementsByClassName('size');
 
 			for (let i = 0; i < sizes.length; i++) {
 				let content = document.getElementsByClassName('text')[i].value;
 				content = content.replace(/ー/g, '|');
-				for (var j = content.length; j > 0; j--) {
+				for (let j = content.length; j > 0; j--) {
 					content = content.slice(0, j) + '\n' + content.slice(j);
 				}
 
-				var obj = new createjs.Text(content);
+				let obj = new createjs.Text(content);
 
 				obj.textAlign = 'center';
 				obj.font = sizes[i].value + 'px anzu, sans-serif';
@@ -136,7 +137,7 @@
 		}
 
 		function saveBlob(blob) {
-			var url = (window.URL || window.webkitURL);
+			let url = (window.URL || window.webkitURL);
 			let dataUrl = url.createObjectURL(blob);
 			let a = document.createElement('a');
 			a.href = dataUrl;
