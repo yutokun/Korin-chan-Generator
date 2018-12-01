@@ -104,7 +104,7 @@
 			transition: .2s;
 		}
 		
-		input[type=range]::-moz-focus-outer { 
+		input[type=range]::-moz-focus-outer {
 			border: 0;
 		}
 		
@@ -120,6 +120,11 @@
 			display: block;
 			background-color: #fff;
 			border-radius: 50%;
+		}
+		
+		input[type=range]:active::-moz-range-thumb {
+			box-shadow: 0 0 0 4px #7aa8c9;
+			transition: .2s;
 		}
 	</style>
 </head>
