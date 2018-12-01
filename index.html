@@ -127,13 +127,21 @@
 			}
 		});
 
-		// pickr 以外をクリックしたら色を確定
-		window.addEventListener('click', function(e) {
-			for (item of e.path) {
-				if (item.className == 'pickr') return;
-			}
-			pickr.setColor(color);
-		})
+		if (window.ontouchstart !== null) {
+			// pickr 以外をクリックしたら色を確定
+			window.addEventListener('click', function(e) {
+				for (item of e.path) {
+					if (item.className == 'pickr') return;
+				}
+				pickr.setColor(color);
+			});
+		} else {
+			// pickr 以外をタップしたら色を確定
+			window.addEventListener('touchstart', function(e) {
+				if (e.target.className.includes('pcr')) return;
+				pickr.setColor(color);
+			});
+		}
 
 		window.addEventListener('load', function() {
 			baseImg = new Image();
