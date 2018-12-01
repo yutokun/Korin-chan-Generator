@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-37449224-6"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-37449224-6');
+	</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<meta property="og:title" content="こりんちゃんジェネレーター">
+	<meta property="og:description" content="絶対に面白いジョークを言える">
+	<meta property="og:image" content="https://korinchan-gen.yutokun.com/OGP.jpg">
+	<meta property="og:image:src" content="https://korinchan-gen.yutokun.com/OGP.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<title>こりんちゃんジェネレーター</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		@font-face {
+			font-family: 'anzu';
+			src: url(/APJapanesefont.ttf);
+		}
+		
+		input {
+			margin-left: 1em;
+		}
+		
+		canvas {
+			max-width: 100%;
+			margin: 1em auto;
+		}
+		
+		#references {
+			margin: 1em auto;
+		}
+	</style>
+</head>
+<body>
+	<h1>こりんちゃんジェネレーター</h1>
+	<p>
+		1行目<input type="text" id="line1" placeholder="内燃機関は">
+		サイズ<input type="text" id="size1" value="50" placeholder="50">
+	</p>
+	<p>
+		2行目<input type="text" id="line2" placeholder="もうないねん">
+		サイズ<input type="text" id="size2" value="50" placeholder="50">
+	</p>
+	
+	<a onclick="saveCanvas();"><canvas id="result" width="882" height="889"></canvas></a>
+	
+	<p>画像をクリックしてダウンロードできます。</p>
+	
+	<p id="references">
+		元絵：<a href="https://twitter.com/x_hjm_x/status/1063799394464460800" target="_blank">こりんちゃんに親父ギャグを言わせれるテンプレートです。</a>
+		<br>使用フォント：<a href="http://www8.plala.or.jp/p_dolce/" target="_blank">あんずもじ</a>
+		<br>参考サイト：<a href="https://wood-roots.com/web/jquery-javascript/1088" target="_blank">CreateJS(EaselJS)によるコラ画像ジェネレータをあっという間に作成する方法</a>
+	</p>
+	
+	<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+	<script>
+		window.addEventListener('load', function() {
+			baseImg = new Image();
+			baseImg.src = 'korinchan.jpg';
+			baseImg.addEventListener('load', genImage);
+			stage = new createjs.Stage('result');
+		})
+		
+		// テキストボックスに入力するたび再描画
+		let inputBox = document.getElementsByTagName("input");
+		for (let box of inputBox) {
+			box.addEventListener("input", genImage);
+		}
+		
+		// 画像をジェネレート
+		function genImage(){
+			var img = new createjs.Bitmap(baseImg);
+
+			stage.addChild(img);
+
+			let positions = {
+				'line1' : {
+					'x' : 280,
+					'y' : 130
+				},
+				'line2' : {
+					'x' : 130,
+					'y' : 230
+				}
+			}
+
+			for (let key in positions) {
+				let content = document.getElementById(key).value;
+				content = content.replace(/ー/g, "|");
+				for (var i = content.length; i > 0; i--) {
+					content = content.slice(0, i) + '\n' + content.slice(i);
+				}
+
+				var obj = new createjs.Text(content);
+
+				obj.textAlign = 'center';
+				obj.font = '50px anzu, sans-serif';
+				obj.lineHeight = '45';
+				obj.x = positions[key]['x'];
+				obj.y = positions[key]['y'];
+				obj.color = "#6CA439";
+
+				stage.addChild(obj);
+				stage.update();
+			}
+			console.log(obj.getMeasuredHeight());
+		}
+		
+		function saveCanvas() {
+			let imageType = 'image/jpeg';
+			let canvas = document.getElementsByTagName('canvas')[0];
+			let base64 = canvas.toDataURL(imageType);
+			let blob = Base64toBlob(base64);
+			saveBlob(blob);
+		}
+		
+		function Base64toBlob(base64){
+			let tmp = base64.split(',');
+			let data = atob(tmp[1]);
+			let mime = tmp[0].split(':')[1].split(';')[0];
+			let buf = new Uint8Array(data.length);
+			for (let i = 0; i < data.length; i++) {
+				buf[i] = data.charCodeAt(i);
+			}
+			return new Blob([buf], { type: mime});
+		}
+		
+		function saveBlob(blob) {
+			var url = (window.URL || window.webkitURL);
+			let dataUrl = url.createObjectURL(blob);
+			let a = document.createElement('a');
+			a.href = dataUrl;
+			a.download = 'korinchan.jpg';
+			let event = document.createEvent('MouseEvents');
+			event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+			a.dispatchEvent(event);
+		}
+	</script>
+</body>
+</html>
