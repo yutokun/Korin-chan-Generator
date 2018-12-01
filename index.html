@@ -83,10 +83,6 @@
 			border-radius: 6px;
 		}
 		
-		input[type=range]:focus {
-			visibility: hidden;
-		}
-		
 		input[type=range]::-webkit-slider-thumb {
 			-webkit-appearance: none;
 			position: relative;
@@ -102,6 +98,21 @@
 		input[type=range]:active::-webkit-slider-thumb {
 			box-shadow: 0 0 0 4px #7aa8c9;
 			transition: .2s;
+		}
+		
+		input[type=range]::-moz-range-track {
+			opacity: 0;
+			outline: none;
+		}
+		
+		input[type=range]::-moz-range-thumb {
+			position: relative;
+			border: 2px solid #7aa8c9;
+			width: 32px;
+			height: 32px;
+			display: block;
+			background-color: #fff;
+			border-radius: 50%;
 		}
 	</style>
 </head>
