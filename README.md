@@ -9,6 +9,8 @@ https://korinchan-gen.yutokun.com/
 
 # ライセンス
 
+## 画像以外のファイル  
 [MIT License](LICENSE)
 
-こりんちゃん画像のみ MIT Licenseではなく、著作権は [ハジメさん](https://twitter.com/x_hjm_x)に帰属します。
+## こりんちゃん画像  
+著作権は [ハジメさん](https://twitter.com/x_hjm_x)に帰属します。
